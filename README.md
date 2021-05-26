@@ -13,7 +13,7 @@ we have several steps for making, that I explain them below :<br />
 6.does any body wins ? if not , is there any free space to go on ? else its equal!<br />
 7.posting the result of the game !<br />
 
-the algorithm for the will be:<br />
+the algorithm for program will be:<br />
 .input<br />
 2.designing board<br />
 3.isfreespace method<br /> 
