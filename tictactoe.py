@@ -1,13 +1,9 @@
 import random
 
-board=[' 'for x in range(10)]
-print(board)
-usercommand = input('Wanna Play ? y/n :')
-
 def insertLetter(letter,pos):
     board[pos]=letter
 
-def printboerd(board):
+def printboard(board):
     print('  |    |   ')
     print(' '+board[1]+' | '+board[2]+' | '+board[3]+' ')
     print('  |    |   ')
@@ -22,7 +18,7 @@ def printboerd(board):
 
 
 def isBoardFull(board):
-    return True if board.count(' ')>1 else False
+    return False if board.count(' ')>1 else True
 
 def isWinner(board , letter):
     return ((board[1]==board[2]==board[3]==letter) or
@@ -40,7 +36,7 @@ def userMove(board,letter):
     while action:
         userInput=input('Please Enter the position : (between 1-9)')
         try:
-            userInput=int(userInput)
+            userInput = int(userInput)
             if userInput in range(1,10):
                 if board[userInput] == ' ':
                     insertLetter(letter,userInput)
@@ -49,6 +45,7 @@ def userMove(board,letter):
                     print('This Position is Occupid !')
             else:
                 print('Your input is not between 1-9 !')
+
         except:
             print('Your input is not valid !')
 
@@ -99,5 +96,56 @@ def computerMove():
 
 
 #playing section
-while usercommand == 'y':
-    pass
+def main(board):
+    #getting User Letter !
+    user_letter = input('Choose \'X\' or \'O\' : ')
+    while not(user_letter.upper()=='X' or user_letter.upper()=='O'):
+        user_letter = input('Please Enter \'X\' or \'O\' : ')
+    user_letter = user_letter.upper()
+
+    #Specify the user letter
+    if user_letter == 'X':
+        computer_letter='O'
+    else:
+        computer_letter='X'
+
+    
+    while not(isBoardFull(board)):
+
+        if not(isWinner(board , computer_letter)):
+            userMove(board,user_letter)
+            printboard(board)
+        else:
+            print("Sorry !!! You Lost!")
+            break
+        
+        
+        if not(isWinner(board , user_letter)):
+            moving_position=computerMove()
+            if moving_position == 0:
+                pass
+            else:
+                insertLetter(computer_letter,moving_position)
+                print('Computer placed \'',computer_letter,'\' on Position',moving_position,' ! ')
+                printboard(board)
+
+        else:
+            print("Congratulations! You Won!")
+            break
+
+    if isBoardFull(board):
+        print('Tie Game !')
+
+print('Hello , Welcome to Tic Tac Toe Game ;)')
+while True:
+    emptyBoard=[' 'for x in range(10)]
+    print('-------------------------------------')
+    main(emptyBoard)
+    print('-------------------------------------')
+    userCommand=input('Wanna Play Again ?? (y/n) : ')
+    
+    if userCommand.upper() == 'Y':
+        continue
+    else :
+        print('GoodBye !')
+        break
