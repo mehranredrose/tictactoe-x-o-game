@@ -1,3 +1,4 @@
+import random
 
 board=[' 'for x in range(10)]
 print(board)
@@ -51,8 +52,50 @@ def userMove(board,letter):
         except:
             print('Your input is not valid !')
 
-def computerMove(letter):
-    pass
+def computerMove():
+    #in this part we check the empty position of the board and saving their locations !
+    possibleMoves = [x for x , letter in enumerate(board) if letter == ' ' and x != 0  ]
+    #just defining a move for computer position and it's initial position will be 0, an integer value not empty string ;)
+    move=0 
+
+    #for each letter of 'x' or 'o' we check that:
+    for lett in ['O','X']:
+        for i in possibleMoves:
+            temp_board = board.copy()
+            temp_board[i] = lett
+            if isWinner(temp_board,lett):
+                move = i
+                return move
+    
+    #now we should check all the strategies , such as corner , middle and the edges
+    #and priority of the strategies will consider as which is first 
+
+    #First #corner
+    freeCorner = []
+    for i in possibleMoves:
+        if i in [1,3,7,9]:
+            freeCorner.append(i)
+
+    if len(freeCorner) > 0 :
+        move= random.choice(freeCorner)
+        return move
+
+    #second #middle
+    if 5 in possibleMoves:
+        move=5
+        return move
+
+    #Third #Edges
+    freeEdges=[]
+    for i in possibleMoves:
+        if i in [2,4,6,8]:
+            freeCorner.append(i)
+
+    if len(freeEdges) > 0:
+        move=random.choice(freeEdges)
+        return move
+
+
 
 
 #playing section
