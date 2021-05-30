@@ -1,21 +1,20 @@
 import random
 
-def insertLetter(letter,pos):
+def insertLetter(letter,pos,board):
     board[pos]=letter
 
 def printboard(board):
-    print('  |    |   ')
+    print('   |   |   ')
     print(' '+board[1]+' | '+board[2]+' | '+board[3]+' ')
-    print('  |    |   ')
+    print('   |   |   ')
     print('-----------')
-    print('  |    |   ')
+    print('   |   |   ')
     print(' '+board[4]+' | '+board[5]+' | '+board[6]+' ')
-    print('  |    |   ')
+    print('   |   |   ')
     print('-----------')
-    print('  |    |   ')
+    print('   |   |   ')
     print(' '+board[7]+' | '+board[8]+' | '+board[9]+' ')
-    print('  |    |   ')
-
+    print('   |   |   ')
 
 def isBoardFull(board):
     return False if board.count(' ')>1 else True
@@ -30,7 +29,6 @@ def isWinner(board , letter):
     (board[1]==board[5]==board[9]==letter) or
     (board[3]==board[5]==board[7]==letter))
 
-
 def userMove(board,letter):
     action = True
     while action:
@@ -39,8 +37,8 @@ def userMove(board,letter):
             userInput = int(userInput)
             if userInput in range(1,10):
                 if board[userInput] == ' ':
-                    insertLetter(letter,userInput)
                     action = False
+                    insertLetter(letter,userInput,board)
                 else:
                     print('This Position is Occupid !')
             else:
@@ -49,7 +47,7 @@ def userMove(board,letter):
         except:
             print('Your input is not valid !')
 
-def computerMove():
+def computerMove(board):
     #in this part we check the empty position of the board and saving their locations !
     possibleMoves = [x for x , letter in enumerate(board) if letter == ' ' and x != 0  ]
     #just defining a move for computer position and it's initial position will be 0, an integer value not empty string ;)
@@ -92,9 +90,6 @@ def computerMove():
         move=random.choice(freeEdges)
         return move
 
-
-
-
 #playing section
 def main(board):
     #getting User Letter !
@@ -121,11 +116,11 @@ def main(board):
         
         
         if not(isWinner(board , user_letter)):
-            moving_position=computerMove()
+            moving_position=computerMove(board)
             if moving_position == 0:
-                pass
+                print('')
             else:
-                insertLetter(computer_letter,moving_position)
+                insertLetter(computer_letter,moving_position,board)
                 print('Computer placed \'',computer_letter,'\' on Position',moving_position,' ! ')
                 printboard(board)
 
