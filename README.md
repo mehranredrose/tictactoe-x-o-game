@@ -1,8 +1,5 @@
 # tictactoe-x-o-game
-
-Here I'm going to make the tictactoe game or the x/o game !<br />
-
-the winnig condition is to make a triple of x (or o) in a row or coloumn or diametrical !<br />
+Our project is to implement the Tic-Tac-Toe game in single player mode. In single player mode we have used game theory logics like minimax algorithms to determine the best move that the computer plays.
 
 we have several steps for making, that I explain them below :<br />
 1.getting input for loop!(yes or no for playing ;)<br />
